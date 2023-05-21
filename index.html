@@ -20,10 +20,533 @@
     />
 
     <title>Frontend Mentor | Insure landing page</title>
-
-    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
-    <link rel="stylesheet" href="app.css" />
     <style>
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: "Karla", sans-serif;
+      }
+
+      #root {
+        min-height: 100vh;
+        width: 100vw;
+        background-color: hsl(0, 0%, 98%);
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      .bgs {
+        pointer-events: none;
+      }
+      .bgs > img:nth-child(1) {
+        position: absolute;
+        top: calc(4.5rem + 450px);
+      }
+      @media screen and (min-width: 1440px) {
+        .bgs > img:nth-child(1) {
+          display: none;
+        }
+      }
+      .bgs > img:nth-child(2) {
+        position: absolute;
+        right: 0rem;
+        top: 100%;
+        top: calc(22.5rem + 450px);
+      }
+      @media screen and (min-width: 1440px) {
+        .bgs > img:nth-child(2) {
+          display: none;
+        }
+      }
+      .bgs > img:nth-child(3) {
+        display: none;
+      }
+      @media screen and (min-width: 1440px) {
+        .bgs > img:nth-child(3) {
+          position: absolute;
+          top: 80vh;
+          display: initial;
+          z-index: 10;
+        }
+      }
+      .bgs > img:nth-child(4) {
+        display: none;
+      }
+      @media screen and (min-width: 1440px) {
+        .bgs > img:nth-child(4) {
+          position: absolute;
+          top: 0;
+          right: 0;
+          display: initial;
+          z-index: 10;
+        }
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "DM Serif Display", serif;
+        font-weight: 400;
+      }
+
+      button[nav-toggle="true"] #open {
+        display: none;
+      }
+
+      button[nav-toggle="false"] #close {
+        display: none;
+      }
+
+      ul {
+        list-style: none;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      body {
+        overflow-x: hidden;
+        background-image: url("images/bg-pattern-intro-left-desktop.svg");
+        background-repeat: no-repeat;
+      }
+
+      .seperator {
+        height: 2px;
+        background-color: hsl(256, 26%, 20%);
+        width: 10rem;
+        margin: 0 auto;
+        margin-bottom: 2.25rem;
+      }
+      @media screen and (min-width: 1440px) {
+        .seperator {
+          height: 1px;
+          margin: 0;
+          margin-bottom: 2.25rem;
+        }
+      }
+
+      nav {
+        background: hsl(0, 0%, 98%);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 4.5rem;
+        padding: 0 1.5rem;
+        position: sticky;
+        top: 0;
+        right: 0;
+        left: 0;
+        z-index: 50;
+      }
+      @media screen and (min-width: 1440px) {
+        nav {
+          padding: 0 6rem;
+        }
+      }
+
+      .logo {
+        text-transform: uppercase;
+        font-weight: 400;
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+      }
+
+      .toggle-nav {
+        background-color: transparent;
+        height: 2.5rem;
+        width: 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #000;
+      }
+      @media screen and (min-width: 1440px) {
+        .toggle-nav {
+          display: none;
+        }
+      }
+      .toggle-nav svg {
+        height: 1.5rem;
+        width: 1.5rem;
+      }
+
+      .nav-list {
+        display: none;
+        align-items: center;
+        text-transform: uppercase;
+        gap: 1.25rem;
+      }
+      @media screen and (min-width: 1440px) {
+        .nav-list {
+          display: flex;
+        }
+      }
+      .nav-list li {
+        text-align: center;
+      }
+      .nav-list .nav-link {
+        text-align: center;
+        font-weight: 600;
+        color: #7d7288;
+        transition: 150ms ease-in-out;
+      }
+      .nav-list .nav-link:hover {
+        color: hsl(270, 9%, 17%);
+      }
+      .nav-list .cta {
+        display: flex;
+        height: 3rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid hsl(256, 26%, 20%);
+        color: hsl(256, 26%, 20%);
+        padding: 0 1.5rem;
+        background: transparent;
+        text-transform: uppercase;
+      }
+      .nav-list .cta:hover {
+        color: hsl(0, 0%, 98%);
+        background-color: hsl(270, 9%, 17%);
+      }
+
+      .mobile-nav.open {
+        display: flex;
+        opacity: 1;
+      }
+      @media screen and (min-width: 1440px) {
+        .mobile-nav.open {
+          display: none;
+        }
+      }
+
+      .mobile-nav {
+        background-position: left bottom;
+        background-image: url("images/bg-pattern-mobile-nav.svg");
+        background-repeat: no-repeat;
+        font-size: 1.45rem;
+        background-color: hsl(270, 9%, 17%);
+        color: hsl(0, 0%, 98%);
+        display: none;
+        align-items: center;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.5rem;
+        height: calc(100vh - 4.5rem);
+        padding: 4.5rem 1.5rem 1.5rem 1.5rem;
+        text-transform: uppercase;
+        position: fixed;
+        top: 4.5rem;
+        right: 0;
+        left: 0;
+        z-index: 50;
+      }
+      .mobile-nav .cta {
+        font-size: 1.45rem;
+      }
+      @media screen and (min-width: 1440px) {
+        .mobile-nav {
+          display: none;
+        }
+      }
+
+      .cta {
+        display: flex;
+        height: 3rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid hsl(0, 0%, 98%);
+        color: hsl(0, 0%, 98%);
+        padding: 0 1.5rem;
+        background: transparent;
+        font-size: 1rem;
+        text-transform: uppercase;
+        margin: 0 auto;
+      }
+
+      main {
+        height: 100%;
+      }
+
+      .hero {
+        min-height: 100vh;
+      }
+      @media screen and (min-width: 1440px) {
+        .hero {
+          position: relative;
+        }
+      }
+
+      .hero-image {
+        height: 450px;
+        background-image: url("images/image-intro-mobile.jpg");
+        -o-object-fit: cover;
+        object-fit: cover;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      @media screen and (min-width: 1440px) {
+        .hero-image {
+          position: absolute;
+          right: 6rem;
+          height: 640px;
+          aspect-ratio: 1/2;
+          bottom: -6rem;
+          max-width: 590px;
+          width: 100%;
+          background-image: url("images/image-intro-desktop.jpg");
+        }
+      }
+      .hero-image img {
+        height: 100%;
+        width: 100%;
+        margin-bottom: 0;
+      }
+
+      .hero-info {
+        padding: 4.5rem 1.5rem;
+        text-align: center;
+        background-color: hsl(256, 26%, 20%);
+        color: hsl(0, 0%, 98%);
+      }
+      @media screen and (min-width: 1440px) {
+        .hero-info {
+          padding: 0 6rem;
+          text-align: start;
+          height: 100vh;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+        }
+      }
+      .hero-info h1 {
+        margin-bottom: 2rem;
+        font-size: 2.75rem;
+        line-height: 2.75rem;
+        font-weight: 400;
+        max-width: 375px;
+      }
+      .hero-info p {
+        margin-bottom: 2rem;
+        max-width: 375px;
+      }
+      .hero-info button {
+        display: flex;
+        height: 3rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid hsl(0, 0%, 98%);
+        color: hsl(0, 0%, 98%);
+        padding: 0 1.5rem;
+        background: transparent;
+        font-size: 1rem;
+        text-transform: uppercase;
+        margin: 0 auto;
+        max-width: 375px;
+        transition: 150ms ease-in-out;
+        font-weight: 600;
+      }
+      .hero-info button:hover {
+        color: hsl(270, 9%, 17%);
+        background-color: hsl(0, 0%, 98%);
+      }
+      @media screen and (min-width: 1440px) {
+        .hero-info button {
+          margin: 0;
+          width: -moz-fit-content;
+          width: fit-content;
+        }
+      }
+
+      .services {
+        padding: 4.5rem 1.5rem;
+        text-align: center;
+      }
+      @media screen and (min-width: 1440px) {
+        .services {
+          padding-top: 10.5rem;
+          text-align: start;
+          padding: 10.5rem 6rem;
+        }
+      }
+      .services h2 {
+        margin-bottom: 4.5rem;
+        font-size: 2.5rem;
+      }
+      .services-list {
+        padding: 1.125rem;
+      }
+      @media screen and (min-width: 1440px) {
+        .services-list {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 2.5rem;
+          padding: 0;
+        }
+      }
+
+      .service-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1.125rem;
+        align-items: center;
+        margin-bottom: 4.5rem;
+      }
+      @media screen and (min-width: 1440px) {
+        .service-item {
+          align-items: start;
+        }
+      }
+      .service-item img {
+        width: 4.5rem;
+        height: 4.5rem;
+      }
+      .service-item h3 {
+        font-size: 1.35rem;
+      }
+      .service-item p {
+        color: hsl(273, 4%, 51%);
+      }
+
+      .findout {
+        padding: 0 1.5rem;
+        text-align: center;
+      }
+      @media screen and (min-width: 1440px) {
+        .findout {
+          text-align: start;
+          padding: 6rem;
+        }
+      }
+      .findout article {
+        background-color: hsl(256, 26%, 20%);
+        color: hsl(0, 0%, 98%);
+        padding: 1.5rem;
+        background-image: url("images/bg-pattern-how-we-work-mobile.svg");
+        background-repeat: no-repeat;
+        background-position: right;
+      }
+      @media screen and (min-width: 1440px) {
+        .findout article {
+          padding: 1.5rem 6rem;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 14rem;
+          background-image: url("images/bg-pattern-how-we-work-desktop.svg");
+          background-repeat: no-repeat;
+          background-position: right;
+        }
+      }
+      .findout article h2 {
+        font-size: 2.5rem;
+        margin-bottom: 2.25rem;
+      }
+      @media screen and (min-width: 1440px) {
+        .findout article h2 {
+          margin-bottom: 0;
+          font-size: 3.5rem;
+        }
+      }
+      .findout article button {
+        display: flex;
+        height: 3rem;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid hsl(0, 0%, 98%);
+        color: hsl(0, 0%, 98%);
+        padding: 0 1.5rem;
+        background: transparent;
+        font-size: 1rem;
+        text-transform: uppercase;
+        margin: 0 auto;
+        transition: 150ms ease-in-out;
+        font-weight: 600;
+      }
+      .findout article button:hover {
+        color: hsl(270, 9%, 17%);
+        background-color: hsl(0, 0%, 98%);
+      }
+      @media screen and (min-width: 1440px) {
+        .findout article button {
+          margin: 0;
+          width: -moz-fit-content !important;
+          width: fit-content !important;
+        }
+      }
+
+      footer {
+        text-transform: uppercase;
+        background-color: rgba(131, 125, 135, 0.1);
+        padding: 4.5rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-image: url("images/bg-pattern-footer-mobile.svg");
+      }
+      @media screen and (min-width: 1440px) {
+        footer {
+          background-image: url("images/bg-pattern-footer-desktop.svg");
+          padding: 4.5rem 6rem;
+        }
+      }
+      @media screen and (min-width: 1440px) {
+        footer header {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          border-bottom: 1px solid hsl(256, 26%, 20%);
+          margin-bottom: 4.5rem;
+        }
+      }
+      @media screen and (min-width: 1440px) {
+        footer .seperator {
+          display: none;
+        }
+      }
+      footer .socials {
+        display: flex;
+        align-items: center;
+        margin: 2.25rem;
+        gap: 1.5rem;
+        margin-bottom: 2.25rem;
+      }
+      footer .contacts {
+        letter-spacing: 1px;
+        margin-bottom: 2.5rem;
+      }
+      @media screen and (min-width: 1440px) {
+        footer .contacts {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+      }
+      footer .contacts-list {
+        margin-bottom: 2.5rem;
+      }
+      @media screen and (min-width: 1440px) {
+        footer .contacts-list {
+          text-align: start;
+        }
+      }
+      footer .contacts-list .subtitle {
+        color: hsl(273, 4%, 51%);
+        margin-bottom: 2.5rem;
+        font-weight: 400;
+      }
+      footer .contacts-list li {
+        margin-bottom: 0.75rem;
+      } /*# sourceMappingURL=app.css.map */
       .attribution {
         font-size: 11px;
         text-align: center;
